@@ -130,26 +130,21 @@ body {
   height: 40px;
   object-fit: contain;
   border-radius: 6px;
-  background: #fff;
-  padding: 3px;
-  box-sizing: border-box;
 }
 
 .row-logo-icon {
   display: grid;
   place-items: center;
-  background: var(--accent);
-  color: var(--paper);
+  color: var(--accent);
 }
 
 .row-logo-icon svg {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 2rem;
+  height: 2rem;
 }
 
-.row-logo-dark {
-  background: var(--paper);
-  outline: 1px solid var(--rule);
+.row-logo-invert {
+  filter: invert(1) brightness(1.4);
 }
 
 .row-text {
@@ -278,12 +273,12 @@ body {
 }
 
 .about-body {
-  max-width: 62ch;
-  padding-bottom: 0.5rem;
+  padding-bottom: 1rem;
+  color: var(--muted);
 }
 
 .about-body p {
-  margin: 0 0 1em;
+  margin: 0;
 }
 
 .footer {

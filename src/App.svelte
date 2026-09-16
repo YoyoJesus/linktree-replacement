@@ -16,11 +16,11 @@
   import ResumeIcon from '~icons/mdi/file-document-outline'
 
   const links = [
-    { name: 'Portfolio', note: 'Projects and experience', url: 'https://asternberg.xyz', logo: portfolioLogo },
+    { name: 'Portfolio', note: 'Projects and experience', url: 'https://asternberg.xyz', logo: portfolioLogo, invert: true },
     { name: 'Resume', note: 'Education, experience, and skills', url: 'https://resume.yoyojesus.xyz', icon: ResumeIcon },
     { name: 'HacKSU', note: 'The largest CS club at Kent State', url: 'https://hacksu.com', logo: hacksuLogo },
     { name: 'Kent Hack It', note: 'HacKSU capture the flag competition', url: 'https://ctf.hacksu.com', logo: khiLogo },
-    { name: 'Kent Hack Enough', note: 'Kent State hackathon', url: 'https://khe.io', logo: kheLogo, darkLogo: true },
+    { name: 'Kent Hack Enough', note: 'Kent State hackathon', url: 'https://khe.io', logo: kheLogo },
     { name: 'KSU Combat Robotics', note: 'Building robots to break other robots', url: 'https://ksucombat.club', logo: combatLogo },
     { name: 'Toolsmith', note: 'Tools for resumes and business cards', url: 'https://toolsmith.online', logo: toolsmithLogo },
     { name: 'Blog', note: 'Writeups and notes', url: 'https://blog.yoyojesus.xyz', logo: blogLogo },
@@ -39,7 +39,7 @@
     <img src={myAvatar} class="avatar" alt="" width="64" height="64" />
     <div>
       <h1 class="name">Austin Sternberg</h1>
-      <p class="lede">Computer science senior at Kent State. President of HacKSU and KSU Combat Robotics.</p>
+      <p class="lede">CS senior at Kent State University. President of HacKSU and KSU Combat Robotics.</p>
     </div>
   </header>
 
@@ -50,7 +50,7 @@
           {#if link.icon}
             <span class="row-logo row-logo-icon"><link.icon aria-hidden="true" /></span>
           {:else}
-            <img src={link.logo} class="row-logo" class:row-logo-dark={link.darkLogo} alt="" width="40" height="40" />
+            <img src={link.logo} class="row-logo" class:row-logo-invert={link.invert} alt="" width="40" height="40" />
           {/if}
           <span class="row-text">
             <span class="row-name">{link.name}</span>
@@ -78,17 +78,11 @@
     <summary>About me</summary>
     <div class="about-body">
       <p>
-        I'm a senior at Kent State University studying computer science with a minor in computer engineering.
+        I'm a CS senior at Kent State University from Mentor, Ohio, and I'm into cybersecurity, networking, and building
+        things. I serve as president of HacKSU, the largest computer science club at Kent State, and of KSU Combat
+        Robotics. Most of my projects are built with SvelteKit and Python, and on the security side I work with tools
+        like Wireshark, Nmap, and Burp Suite.
       </p>
-      <p>
-        I intern in the IT department at Awetomaton, a defense contractor in Beavercreek, Ohio, where I build internal
-        tools and help existing processes scale.
-      </p>
-      <p>
-        As president of HacKSU and Kent State Combat Robotics, I run events, maintain infrastructure, and lead projects
-        in both groups.
-      </p>
-      <p>In my free time I build Python security tools, which you can find on my GitHub.</p>
     </div>
   </details>
 
