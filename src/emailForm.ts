@@ -16,7 +16,7 @@ export function initEmailForm() {
   const modal = document.getElementById('contact-modal') as HTMLElement;
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const closeBtn = document.getElementById('close-modal') as HTMLButtonElement;
-  const openBtn = document.getElementById('open-contact-form') as HTMLAnchorElement;
+  const openBtn = document.getElementById('open-contact-form') as HTMLButtonElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const toast = document.getElementById('toast') as HTMLElement;
   const toastMessage = document.getElementById('toast-message') as HTMLElement;
@@ -68,14 +68,14 @@ export function initEmailForm() {
       const response = await emailjs.sendForm(serviceId, templateId, form, publicKey);
       
       console.log('EmailJS Response:', response);
-      showToast("Message sent successfully! I'll get back to you soon.", false);
+      showToast("Message sent. I'll reply by email.", false);
       closeModal();
     } catch (error) {
       console.error('EmailJS Error:', error);
-      showToast('Failed to send message. Please try again.', true);
+      showToast("Message didn't send. Check your connection and try again.", true);
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Message';
+      submitBtn.textContent = 'Send message';
     }
   });
 }
