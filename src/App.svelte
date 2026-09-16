@@ -6,19 +6,23 @@
   import combatLogo from '/Combat.png'
   import khiLogo from '/2026_KHI_Logo.png'
   import blogLogo from '/blog.png'
+  import toolsmithLogo from '/toolsmith.svg'
   import GithubIcon from '~icons/fa-brands/github'
   import LinkedinIcon from '~icons/fa-brands/linkedin'
   import YoutubeIcon from '~icons/fa-brands/youtube'
   import InstagramIcon from '~icons/fa-brands/instagram'
   import EmailIcon from '~icons/mdi/email-outline'
   import ArrowIcon from '~icons/mdi/arrow-top-right'
+  import ResumeIcon from '~icons/mdi/file-document-outline'
 
   const links = [
     { name: 'Portfolio', note: 'Projects and experience', url: 'https://asternberg.xyz', logo: portfolioLogo },
-    { name: 'HacKSU', note: 'Kent State hacking club', url: 'https://hacksu.com', logo: hacksuLogo },
-    { name: 'HacKSU CTF', note: 'Capture the flag challenges', url: 'https://ctf.hacksu.com', logo: khiLogo },
+    { name: 'Resume', note: 'Education, experience, and skills', url: 'https://resume.yoyojesus.xyz', icon: ResumeIcon },
+    { name: 'HacKSU', note: 'The largest CS club at Kent State', url: 'https://hacksu.com', logo: hacksuLogo },
+    { name: 'Kent Hack It', note: 'HacKSU capture the flag competition', url: 'https://ctf.hacksu.com', logo: khiLogo },
     { name: 'Kent Hack Enough', note: 'Kent State hackathon', url: 'https://khe.io', logo: kheLogo, darkLogo: true },
     { name: 'KSU Combat Robotics', note: 'Building robots to break other robots', url: 'https://ksucombat.club', logo: combatLogo },
+    { name: 'Toolsmith', note: 'Tools for resumes and business cards', url: 'https://toolsmith.online', logo: toolsmithLogo },
     { name: 'Blog', note: 'Writeups and notes', url: 'https://blog.yoyojesus.xyz', logo: blogLogo },
   ]
 
@@ -43,7 +47,11 @@
     {#each links as link}
       <li>
         <a class="row" href={link.url} target="_blank" rel="noreferrer">
-          <img src={link.logo} class="row-logo" class:row-logo-dark={link.darkLogo} alt="" width="40" height="40" />
+          {#if link.icon}
+            <span class="row-logo row-logo-icon"><link.icon aria-hidden="true" /></span>
+          {:else}
+            <img src={link.logo} class="row-logo" class:row-logo-dark={link.darkLogo} alt="" width="40" height="40" />
+          {/if}
           <span class="row-text">
             <span class="row-name">{link.name}</span>
             <span class="row-note">{link.note}</span>

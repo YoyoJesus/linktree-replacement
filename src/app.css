@@ -2,30 +2,22 @@
 @import 'tailwindcss';
 
 :root {
-  --paper: #e4e7ea;
-  --ink: #1a2233;
-  --muted: #5b6472;
-  --rule: #c3c9d0;
-  --signal: #ffc400;
-  --on-signal: #1a2233;
+  --paper: #1b211a;
+  --ink: #e2e8f0;
+  --muted: #94a3b8;
+  --rule: color-mix(in srgb, #94a3b8 20%, transparent);
+  --primary: #628141;
+  --accent: #b8db80;
+  --surface: color-mix(in srgb, #354c2c 85%, transparent);
 
   font-family: 'Archivo', system-ui, sans-serif;
   font-size: 17px;
   line-height: 1.55;
   color: var(--ink);
   background: var(--paper);
-  color-scheme: light dark;
+  color-scheme: dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #1a2233;
-    --ink: #e4e7ea;
-    --muted: #97a0ad;
-    --rule: #344058;
-  }
 }
 
 html {
@@ -43,12 +35,12 @@ body {
 }
 
 ::selection {
-  background: var(--signal);
-  color: var(--on-signal);
+  background: var(--primary);
+  color: var(--ink);
 }
 
 :focus-visible {
-  outline: 3px solid var(--signal);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -86,6 +78,7 @@ body {
   font-variation-settings: 'wdth' 125;
   line-height: 1.05;
   letter-spacing: -0.02em;
+  color: var(--accent);
 }
 
 .lede {
@@ -104,7 +97,7 @@ body {
   list-style: none;
   margin: 2rem 0 0;
   padding: 0;
-  border-top: 2px solid var(--ink);
+  border-top: 2px solid var(--primary);
 }
 
 .links li {
@@ -125,7 +118,7 @@ body {
 }
 
 .row:hover {
-  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  background: var(--surface);
 }
 
 .row:focus-visible {
@@ -142,8 +135,20 @@ body {
   box-sizing: border-box;
 }
 
+.row-logo-icon {
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.row-logo-icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
 .row-logo-dark {
-  background: #1a2233;
+  background: var(--paper);
   outline: 1px solid var(--rule);
 }
 
@@ -178,7 +183,7 @@ body {
 }
 
 .row:hover .row-arrow {
-  color: var(--ink);
+  color: var(--accent);
   transform: translate(2px, -2px);
 }
 
@@ -219,21 +224,22 @@ body {
 }
 
 .social:hover {
-  border-color: var(--ink);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .social-email {
   margin-left: auto;
   padding: 0 1.1rem;
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--paper);
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
 }
 
 .social-email:hover {
-  background: var(--signal);
-  border-color: var(--signal);
-  color: var(--on-signal);
+  background: color-mix(in srgb, var(--primary) 90%, transparent);
+  border-color: var(--primary);
+  color: #fff;
 }
 
 /* About */
@@ -319,7 +325,7 @@ body {
   inset: 0;
   z-index: 1000;
   padding: 1rem;
-  background: rgb(26 34 51 / 0.6);
+  background: rgb(0 0 0 / 0.7);
 }
 
 .modal.active {
@@ -337,7 +343,8 @@ body {
   padding: 2rem;
   box-sizing: border-box;
   background: var(--paper);
-  border-top: 6px solid var(--signal);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--primary);
   border-radius: 4px;
   animation: modal-in 0.2s ease-out;
 }
@@ -355,6 +362,7 @@ body {
   font-weight: 800;
   font-variation-settings: 'wdth' 120;
   line-height: 1.1;
+  color: var(--accent);
 }
 
 .close-btn {
@@ -399,8 +407,8 @@ body {
 
 .form-input:focus {
   outline: none;
-  border-color: var(--ink);
-  box-shadow: 0 0 0 3px var(--signal);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 50%, transparent);
 }
 
 textarea.form-input {
@@ -414,16 +422,15 @@ textarea.form-input {
   padding: 0.9rem;
   border: 0;
   border-radius: 4px;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--primary);
+  color: #fff;
   font: inherit;
   font-weight: 650;
   cursor: pointer;
 }
 
 .submit-btn:hover {
-  background: var(--signal);
-  color: var(--on-signal);
+  background: color-mix(in srgb, var(--primary) 90%, transparent);
 }
 
 .submit-btn:disabled {
@@ -440,10 +447,10 @@ textarea.form-input {
   z-index: 1001;
   max-width: calc(100% - 3rem);
   padding: 0.9rem 1.2rem;
-  border-left: 4px solid var(--signal);
+  border-left: 4px solid var(--accent);
   border-radius: 4px;
-  background: var(--ink);
-  color: var(--paper);
+  background: #354c2c;
+  color: var(--ink);
   font-weight: 500;
   transform: translateY(150%);
   opacity: 0;
