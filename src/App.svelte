@@ -11,9 +11,10 @@
   import LinkedinIcon from '~icons/fa-brands/linkedin'
   import YoutubeIcon from '~icons/fa-brands/youtube'
   import InstagramIcon from '~icons/fa-brands/instagram'
-  import EmailIcon from '~icons/mdi/email-outline'
   import ArrowIcon from '~icons/mdi/arrow-top-right'
   import ResumeIcon from '~icons/mdi/file-document-outline'
+  import Field from './Field.svelte'
+  import { kinetic, splitWords } from './kinetic'
 
   const links = [
     { name: 'Portfolio', note: 'Projects and experience', url: 'https://asternberg.xyz', logo: portfolioLogo, invert: true },
@@ -32,79 +33,128 @@
     { label: 'YouTube', url: 'https://www.youtube.com/@yoyojesus', icon: YoutubeIcon },
     { label: 'Instagram', url: 'https://www.instagram.com/yoyoje_sus/', icon: InstagramIcon },
   ]
+
+  const name = splitWords('Austin Sternberg')
+  const linksHeading = splitWords('My Links')
+  const aboutHeading = splitWords('About Me')
 </script>
 
-<main class="page">
-  <header class="intro">
-    <img src={myAvatar} class="avatar" alt="" width="64" height="64" />
-    <div>
-      <h1 class="name">Austin Sternberg</h1>
-      <p class="lede">CS senior at Kent State University. President of HacKSU and KSU Combat Robotics.</p>
-    </div>
-  </header>
+<div class="ambient-field" aria-hidden="true"><Field quiet /></div>
 
-  <ul class="links">
-    {#each links as link}
-      <li>
-        <a class="row" href={link.url} target="_blank" rel="noreferrer">
-          {#if link.icon}
-            <span class="row-logo row-logo-icon"><link.icon aria-hidden="true" /></span>
-          {:else}
-            <img src={link.logo} class="row-logo" class:row-logo-invert={link.invert} alt="" width="40" height="40" />
-          {/if}
-          <span class="row-text">
-            <span class="row-name">{link.name}</span>
-            <span class="row-note">{link.note}</span>
-          </span>
-          <ArrowIcon class="row-arrow" aria-hidden="true" />
-        </a>
-      </li>
-    {/each}
-  </ul>
-
-  <nav class="socials" aria-label="Social profiles">
-    {#each socials as social}
-      <a href={social.url} target="_blank" rel="noreferrer" aria-label={social.label} class="social">
-        <social.icon aria-hidden="true" />
-      </a>
-    {/each}
-    <button type="button" id="open-contact-form" class="social social-email">
-      <EmailIcon aria-hidden="true" />
-      <span>Email me</span>
-    </button>
+<header class="site-header">
+  <img class="header-avatar" src={myAvatar} width="45" height="45" alt="" />
+  <nav aria-label="Social profiles">
+    <ul class="header-socials">
+      {#each socials as social}
+        <li>
+          <a href={social.url} target="_blank" rel="noreferrer" aria-label={social.label}>
+            <social.icon aria-hidden="true" />
+          </a>
+        </li>
+      {/each}
+    </ul>
   </nav>
+</header>
 
-  <details class="about">
-    <summary>About me</summary>
-    <div class="about-body">
-      <p>
-        I'm a CS senior at Kent State University from Mentor, Ohio, and I'm into cybersecurity, networking, and building
-        things. I serve as president of HacKSU, the largest computer science club at Kent State, and of KSU Combat
-        Robotics. Most of my projects are built with SvelteKit and Python, and on the security side I work with tools
-        like Wireshark, Nmap, and Burp Suite.
-      </p>
+<main>
+  <section class="hero" aria-labelledby="hero-name">
+    <Field />
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="shell hero-inner">
+      <h1 id="hero-name" class="display hero-name" aria-label="Austin Sternberg" use:kinetic>
+        {#each name as word}
+          <span class="word" aria-hidden="true">
+            {#each word as letter}
+              <span class="ch" data-kinetic-letter style="--i: {letter.i}">{letter.char}</span>
+            {/each}
+          </span>
+        {/each}
+      </h1>
+      <div class="hero-bottom">
+        <div class="hero-summary">
+          <p>CS Senior at Kent State University.</p>
+          <p>President of HacKSU, Kent State's largest computer science club.</p>
+          <p>President of KSU Combat Robotics.</p>
+        </div>
+        <div class="hero-actions">
+          <button id="open-contact-form" type="button" class="btn btn-primary">
+            Get in Touch <span aria-hidden="true">→</span>
+          </button>
+          <a class="btn btn-ghost" href="https://resume.yoyojesus.xyz" target="_blank" rel="noreferrer">View my Resume</a>
+          <a class="btn btn-ghost" href="https://blog.yoyojesus.xyz" target="_blank" rel="noreferrer">Read my Blog</a>
+        </div>
+      </div>
     </div>
-  </details>
+  </section>
 
-  <footer class="footer">{new Date().getFullYear()} Austin Sternberg</footer>
+  <div class="content-column">
+    <section class="content-section" aria-labelledby="links-heading">
+      <h2 id="links-heading" aria-label="My Links" use:kinetic>
+        {#each linksHeading as word, w}
+          <span class="heading-word" class:secondary={w > 0} aria-hidden="true">
+            {#each word as letter}
+              <span class="heading-letter" data-kinetic-letter style="--i: {letter.i}">{letter.char}</span>
+            {/each}
+          </span>{' '}
+        {/each}
+      </h2>
+      <ul class="links">
+        {#each links as link}
+          <li>
+            <a class="row" href={link.url} target="_blank" rel="noreferrer">
+              {#if link.icon}
+                <span class="row-logo row-logo-icon"><link.icon aria-hidden="true" /></span>
+              {:else}
+                <img src={link.logo} class="row-logo" class:row-logo-invert={link.invert} alt="" width="44" height="44" />
+              {/if}
+              <span class="row-text">
+                <span class="row-name">{link.name}</span>
+                <span class="row-note">{link.note}</span>
+              </span>
+              <ArrowIcon class="row-arrow" aria-hidden="true" />
+            </a>
+          </li>
+        {/each}
+      </ul>
+    </section>
+
+    <section class="content-section compact-end" aria-labelledby="about-heading">
+      <h2 id="about-heading" aria-label="About Me" use:kinetic>
+        {#each aboutHeading as word, w}
+          <span class="heading-word" class:secondary={w > 0} aria-hidden="true">
+            {#each word as letter}
+              <span class="heading-letter" data-kinetic-letter style="--i: {letter.i}">{letter.char}</span>
+            {/each}
+          </span>{' '}
+        {/each}
+      </h2>
+      <p class="about-body">
+        I'm a CS senior at Kent State University from Mentor, Ohio, and I'm into cybersecurity, networking, and building
+        things. Most of my projects are built with SvelteKit and Python, and on the security side I work with tools like
+        Wireshark, Nmap, and Burp Suite.
+      </p>
+    </section>
+
+    <footer class="footer">{new Date().getFullYear()} Austin Sternberg</footer>
+  </div>
 </main>
 
 <div id="contact-modal" class="modal">
   <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="contact-title">
     <button id="close-modal" class="close-btn" aria-label="Close">&times;</button>
-    <h2 id="contact-title" class="modal-title">Send me a message</h2>
+    <h2 id="contact-title" class="modal-title">Get in Touch</h2>
     <form id="contact-form">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" required class="form-input" />
+        <input type="text" id="name" name="name" required class="form-input" placeholder="Your name" />
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" required class="form-input" />
+        <input type="email" id="email" name="email" required class="form-input" placeholder="you@example.com" />
       </div>
       <div class="form-group">
         <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required class="form-input"></textarea>
+        <textarea id="message" name="message" rows="5" required class="form-input" placeholder="Your message"></textarea>
       </div>
       <button type="submit" id="submit-btn" class="submit-btn">Send message</button>
     </form>

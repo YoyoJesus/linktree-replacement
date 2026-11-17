@@ -3,12 +3,11 @@
 
 
 ## 🎨 Design
-This site features a beautiful **Frutiger Aero** aesthetic with:
-- Glassmorphism effects with translucent cards and buttons
-- Sky blue gradient backgrounds creating an airy atmosphere
-- Floating organic shapes and smooth animations
-- Sparkle effects and interactive hover states
-- Modern Inter typography with gradient text effects
+The design follows [asternberg.xyz](https://asternberg.xyz):
+- Dark slate palette with a teal accent
+- Dithered WebGL noise field behind the hero and page
+- Large Gabarito display name with letter weights that respond to the cursor
+- Be Vietnam Pro body text and pill-shaped buttons
 
 ## 🚀 Technologies
 - **Svelte** - Modern reactive framework
@@ -20,7 +19,9 @@ This site features a beautiful **Frutiger Aero** aesthetic with:
 ```
 ├── src/
 │   ├── App.svelte          # Main component with portfolio links
-│   ├── app.css             # Frutiger Aero styling & animations
+│   ├── Field.svelte        # WebGL background field
+│   ├── kinetic.ts          # Cursor-driven letter weights
+│   ├── app.css             # Site styling
 │   └── main.js             # Application entry point
 ├── public/
 │   ├── *.png               # Logo assets
