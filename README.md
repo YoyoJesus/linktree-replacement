@@ -3,10 +3,10 @@
 
 
 ## 🎨 Design
-The design follows [asternberg.xyz](https://asternberg.xyz):
+The design borrows from [asternberg.xyz](https://asternberg.xyz):
 - Dark slate palette with a teal accent
-- Dithered WebGL noise field behind the hero and page
-- Large Gabarito display name with letter weights that respond to the cursor
+- Faint dithered WebGL noise field behind the page
+- Gabarito display name that animates in, with letter weights that respond to the cursor
 - Be Vietnam Pro body text and pill-shaped buttons
 
 ## 🚀 Technologies

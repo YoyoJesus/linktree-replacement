@@ -1,6 +1,4 @@
 <script lang="ts">
-  let { quiet = false }: { quiet?: boolean } = $props()
-
   let canvas: HTMLCanvasElement
   let failed = $state(false)
 
@@ -112,14 +110,13 @@ void main() {
     const uRes = uniform('u_res')
     const uTime = uniform('u_time')
     const uMouse = uniform('u_mouse')
-    const uHover = uniform('u_hover')
+    gl.uniform1f(uniform('u_hover'), 0)
     gl.uniform3fv(uniform('u_a'), colors.a)
     gl.uniform3fv(uniform('u_b'), colors.b)
     gl.uniform3fv(uniform('u_bg'), colors.bg)
 
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
-    const scale = quiet ? 5 : 3
-    const pointer = { x: 0.7, y: 0.6, tx: 0.7, ty: 0.6, hover: 0, thover: 0 }
+    const scale = 5
     const start = performance.now() - 40000 * Math.random()
     let width = 1
     let height = 1
@@ -128,13 +125,9 @@ void main() {
     let last = 0
 
     const draw = (now: number) => {
-      pointer.x += (pointer.tx - pointer.x) * 0.06
-      pointer.y += (pointer.ty - pointer.y) * 0.06
-      pointer.hover += (pointer.thover - pointer.hover) * 0.04
       gl.uniform2f(uRes, width, height)
-      gl.uniform1f(uTime, reduced ? 12 : ((now - start) / 1000) * (quiet ? 0.2 : 1))
-      gl.uniform2f(uMouse, pointer.x * width, (1 - pointer.y) * height)
-      gl.uniform1f(uHover, pointer.hover)
+      gl.uniform1f(uTime, reduced ? 12 : ((now - start) / 1000) * 0.2)
+      gl.uniform2f(uMouse, 0.7 * width, 0.4 * height)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
     }
 
@@ -150,7 +143,7 @@ void main() {
     const loop = (now: number) => {
       frame = 0
       if (!visible || document.hidden) return
-      if (!quiet || now - last >= 50) {
+      if (now - last >= 50) {
         draw(now)
         last = now
       }
@@ -161,14 +154,6 @@ void main() {
       if (!reduced && !frame && visible && !document.hidden) frame = requestAnimationFrame(loop)
     }
 
-    const move = (event: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect()
-      pointer.tx = (event.clientX - rect.left) / rect.width
-      pointer.ty = (event.clientY - rect.top) / rect.height
-      pointer.thover = pointer.ty >= 0 && pointer.ty <= 1 ? 1 : 0
-    }
-    const leave = () => (pointer.thover = 0)
-
     const resizeObserver = new ResizeObserver(resize)
     resizeObserver.observe(canvas)
     const intersectionObserver = new IntersectionObserver(([entry]) => {
@@ -177,10 +162,6 @@ void main() {
     })
     intersectionObserver.observe(canvas)
     document.addEventListener('visibilitychange', wake)
-    if (!reduced && !quiet) {
-      window.addEventListener('pointermove', move, { passive: true })
-      document.documentElement.addEventListener('pointerleave', leave)
-    }
     resize()
     wake()
 
@@ -189,8 +170,6 @@ void main() {
       resizeObserver.disconnect()
       intersectionObserver.disconnect()
       document.removeEventListener('visibilitychange', wake)
-      window.removeEventListener('pointermove', move)
-      document.documentElement.removeEventListener('pointerleave', leave)
       gl.getExtension('WEBGL_lose_context')?.loseContext()
     }
   })
